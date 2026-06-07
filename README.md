@@ -1,11 +1,11 @@
-# x-txid-generator
+# @hardbrick21/x-txid-generator
 
 TypeScript/Node.js generator for X/Twitter `x-client-transaction-id` values.
 
 ## Installation
 
 ```bash
-npm install x-txid-generator
+npm install @hardbrick21/x-txid-generator
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ import {
   generateHeaders,
   getOndemandFileUrl,
   handleXMigrationAsync,
-} from 'x-txid-generator';
+} from '@hardbrick21/x-txid-generator';
 
 const headers = generateHeaders();
 

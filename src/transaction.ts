@@ -108,26 +108,18 @@ export class ClientTransaction {
     }
 
     const $ = cheerio.load(frame);
-    const pathData = $('path').eq(0).attr('d');
+    const pathRows = $('path')
+      .toArray()
+      .map((path) => parseAnimationPath($(path).attr('d')))
+      .filter((rows) => rows.length > 0)
+      .sort((left, right) => right.length - left.length);
+    const rows = pathRows[0];
 
-    if (!pathData) {
+    if (!rows) {
       throw new Error("Couldn't get animation path data from the page source");
     }
 
-    return pathData
-      .slice(9)
-      .split('C')
-      .map((item) => {
-        const normalized = item.replace(/[^\d]+/g, ' ').trim();
-
-        if (!normalized) {
-          return [];
-        }
-
-        return normalized
-          .split(/\s+/)
-          .map((value) => Number.parseInt(value, 10));
-      });
+    return rows;
   }
 
   solve(value: number, minValue: number, maxValue: number, rounding: boolean) {
@@ -242,4 +234,24 @@ function requiredHomePage(homePageResponse?: string) {
   }
 
   return homePageResponse;
+}
+
+function parseAnimationPath(pathData?: string): number[][] {
+  if (!pathData) {
+    return [];
+  }
+
+  return pathData
+    .slice(9)
+    .split('C')
+    .map((item) => {
+      const normalized = item.replace(/[^\d]+/g, ' ').trim();
+
+      if (!normalized) {
+        return [];
+      }
+
+      return normalized.split(/\s+/).map((value) => Number.parseInt(value, 10));
+    })
+    .filter((row) => row.length > 0);
 }

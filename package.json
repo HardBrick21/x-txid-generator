@@ -1,6 +1,6 @@
 {
-  "name": "x-txid-generator",
-  "version": "1.0.0",
+  "name": "@hardbrick21/x-txid-generator",
+  "version": "1.0.1",
   "description": "X/Twitter x-client-transaction-id generator for Node.js",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -23,7 +23,7 @@
   "keywords": ["x", "twitter", "x-client-transaction-id", "transaction-id"],
   "license": "MIT",
   "dependencies": {
-    "cheerio": "^1.0.0"
+    "cheerio": "1.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
